@@ -17,6 +17,7 @@ function StarRating({
   color = "#fcc419",
   className = "",
   defaultRating = 0,
+  onSetRating,
 }) {
   const textStyle = {
     lineHeight: "1",
@@ -26,6 +27,11 @@ function StarRating({
   };
   const [rating, setRating] = useState(defaultRating);
   const [tempRating, setTempRating] = useState(0);
+
+  function handleRating(rating) {
+    setRating(rating);
+    onSetRating(rating);
+  }
   return (
     <div style={containerStyle}>
       <div style={starContainerStyle}>
@@ -33,7 +39,7 @@ function StarRating({
           <Star
             key={i}
             size={size}
-            onRate={() => setRating(i + 1)}
+            onRate={() => handleRating(i + 1)}
             rating={rating}
             full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
             color={color}
